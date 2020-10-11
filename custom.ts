@@ -8,7 +8,7 @@
  * Custom blocks
  */
 //% weight=100 color=#0fbc11 icon=""
-namespace IoT {
+namespace IoT_gateway {
     //% block
     export function gatewayOrchestrator (): void {
     //debug("start orchestration ...")
