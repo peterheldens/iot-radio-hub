@@ -9,6 +9,14 @@
  */
 //% weight=100 color=#0fbc11 icon=""
 namespace IoT_gateway {
+    let showDebug = true
+
+    //% block="$on"
+    //% on.shadow="toggleOnOff"
+    export function enableDebug(on: boolean) {
+        showDebug = on;
+    }
+
     //% block
     export function gatewayOrchestrator (): void {
     //debug("start orchestration ...")
@@ -343,7 +351,7 @@ let serialRead = ""
 let index = 0
 let sn = 0
 let id = 0
-let showDebug = true
+
 let packet_loss = 0
 let device_telemetry: string[] = []
 let device_property: string[] = []
