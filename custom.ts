@@ -10,11 +10,18 @@
 //% weight=100 color=#0fbc11 icon=""
 namespace IoT_gateway {
     let showDebug = true
+    let doTelemetry = true
 
-    //% block="$on"
+    //% block="set debugger $on"
     //% on.shadow="toggleOnOff"
     export function enableDebug(on: boolean) {
         showDebug = on;
+    }
+
+    //%block="telemetry $b"
+    //% b.shadow="toggleOnOff"
+    export function sendTelemetry(b: boolean) {
+        doTelemetry = b
     }
 
     //% block
@@ -61,32 +68,34 @@ function request_next_mb () {
 }
 
 function send_gateway_telemetry() {
-    debug("send gateway telemetry data")
-    let sn=control.deviceSerialNumber()
-    telemetry(sn,"id", 0)
-    telemetry(sn,"sn", sn)
+    if (device_telemetry) {
+        debug("send gateway telemetry data")
+        let sn=control.deviceSerialNumber()
+        telemetry(sn,"id", 0)
+        telemetry(sn,"sn", sn)
 
-    telemetry(sn,"time", input.runningTime())
-    telemetry(sn,"packetLoss", packet_loss)
-    telemetry(sn,"signal", 100)
-    telemetry(sn,"temp", input.temperature())
-    telemetry(sn,"lightLevel", input.lightLevel())
+        telemetry(sn,"time", input.runningTime())
+        telemetry(sn,"packetLoss", packet_loss)
+        telemetry(sn,"signal", 100)
+        telemetry(sn,"temp", input.temperature())
+        telemetry(sn,"lightLevel", input.lightLevel())
 
-    telemetry(sn,"accelerometerX", input.acceleration(Dimension.X))
-    telemetry(sn,"accelerometerY", input.acceleration(Dimension.Y))
-    telemetry(sn,"accelerometerZ", input.acceleration(Dimension.Z))
-    
-    telemetry(sn,"compass", 1)
-    telemetry(sn,"digitalPinP0", pins.digitalReadPin(DigitalPin.P0))
-    telemetry(sn,"digitalPinP1", pins.digitalReadPin(DigitalPin.P1))
-    telemetry(sn,"digitalPinP2", pins.digitalReadPin(DigitalPin.P2))
-    telemetry(sn,"analogPinP0", pins.analogReadPin(AnalogPin.P0))
-    telemetry(sn,"analogPinP1", pins.analogReadPin(AnalogPin.P1))
-    telemetry(sn,"analogPinP2", pins.analogReadPin(AnalogPin.P2))
-    
-    //property(sn, "prop1", 1)
-    telemetry(sn,"eom", 1)
-    //property(sn,"eom", 1)
+        telemetry(sn,"accelerometerX", input.acceleration(Dimension.X))
+        telemetry(sn,"accelerometerY", input.acceleration(Dimension.Y))
+        telemetry(sn,"accelerometerZ", input.acceleration(Dimension.Z))
+        
+        telemetry(sn,"compass", 1)
+        telemetry(sn,"digitalPinP0", pins.digitalReadPin(DigitalPin.P0))
+        telemetry(sn,"digitalPinP1", pins.digitalReadPin(DigitalPin.P1))
+        telemetry(sn,"digitalPinP2", pins.digitalReadPin(DigitalPin.P2))
+        telemetry(sn,"analogPinP0", pins.analogReadPin(AnalogPin.P0))
+        telemetry(sn,"analogPinP1", pins.analogReadPin(AnalogPin.P1))
+        telemetry(sn,"analogPinP2", pins.analogReadPin(AnalogPin.P2))
+        
+        //property(sn, "prop1", 1)
+        telemetry(sn,"eom", 1)
+        //property(sn,"eom", 1)
+    }
 }
 
 
