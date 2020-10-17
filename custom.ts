@@ -68,7 +68,7 @@ function request_next_mb () {
 }
 
 function send_gateway_telemetry() {
-    if (device_telemetry) {
+    if (doTelemetry) {
         debug("send gateway telemetry data")
         let sn=control.deviceSerialNumber()
         telemetry(sn,"id", 0)
